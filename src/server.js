@@ -1,18 +1,20 @@
 // memuat kode untuk membuat, mengonfigurasi, dan menjalankan server HTTP menggunakan Hapi
 
+require('dotenv').config() // agar node.js bisa memproses berkas .env
+
 const Hapi = require('@hapi/hapi')
 const notes = require('./api/notes')
-const NotesService = require('./services/inMemory/NotesService')
+const NotesService = require('./services/postgres/NotesService')
 const NotesValidator = require('./validator/notes')
 
 const init = async () => {
   const notesService = new NotesService()
   const server = Hapi.server({ // membuat server
-    port: 5000,
-    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0', // properti host akan bernilai sesuai dengan environment
+    port: process.env.PORT,
+    host: process.env.HOST, // properti host akan bernilai sesuai dengan environment
     routes: {
-      cors: {
-        origin: ['*']
+      cors: { // cross-origin resource sharing
+        origin: ['*'] // origin terdiri dari tiga: protokol (http:/), host (blablabla.com), dan port number
       }
     }
   })
