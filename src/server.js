@@ -5,7 +5,7 @@ require('dotenv').config() // agar node.js bisa memproses berkas .env
 const Hapi = require('@hapi/hapi')
 const Jwt = require('@hapi/jwt')
 const Inert = require('@hapi/inert')
-const path = require('path')
+// const path = require('path')
 
 const notes = require('./api/notes')
 const NotesService = require('./services/postgres/NotesService')
